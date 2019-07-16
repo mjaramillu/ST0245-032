@@ -29,9 +29,14 @@ class Punto2D():
         return self.y
 
     def radio_polar(self):
-
+        return dist_euclidiana(selt, Punto2D(0,0))
 
     def angulo_polar(self):
-
+        angulo = math.atan(self.y/self.x)
+        return angulo
 
     def dist_euclidiana(self, Punto2D other):
+        deltax = other.x - self.x
+        deltay = other.y - self.y
+        dist = math.sqrt(deltax**2 + deltay**2)
+        return dist
