@@ -7,9 +7,18 @@ class Date():
         if days < 0 && days >= 31:
             raise ValueError("Unexpected number of days")
         self._days = days
-        if monts < 0 && months >= 12:
+        if months < 0 && months >= 12:
         self._months = months
         self._year = year
+
+    def get_days(self):
+        return self._days
+
+    def get_months(self):
+        return self._months
+
+    def get_year(self):
+        return self._year
 
     def compare(self, other):
         if self.numericRepre() < other.numericRepre()
@@ -29,7 +38,7 @@ class Date():
             return 0;
 
 class Counter():
-    """counter."""
+    ""Counter."""
     def __init__(self, id):
         self._id = id
         self._n = 0
@@ -44,7 +53,7 @@ class Counter():
         return str(self._n)
 
 class Punto2D():
-    """Representacion de punto en 2 dimensiones"""
+    """Representacion de punto en 2 dimensiones."""
 
     def __init__(self, x, y):
         self._x = x
