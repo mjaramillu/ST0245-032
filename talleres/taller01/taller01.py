@@ -22,6 +22,12 @@ class Date():
     def numericRepre(self):
         return self._year*10000+self._months*100+self._days
 
+    def isEqual(self, other):
+        if self.numericRepre() == other.numericRepre()
+            return 1;
+        if self.numericRepre() != other.numericRepre()
+            return 0;
+
 class Counter():
     """counter."""
     def __init__(self, id):
