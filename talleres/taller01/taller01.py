@@ -22,6 +22,7 @@ class Punto2D():
         self.y = y
 
     def get_x(self):
+        return self.x
 
 
     def get_y(self):
