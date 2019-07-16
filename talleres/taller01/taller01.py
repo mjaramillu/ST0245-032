@@ -11,6 +11,17 @@ class Date():
         self._months = months
         self._year = year
 
+    def compare(self, other):
+        if self.numericRepre() < other.numericRepre()
+            return 1
+        if self.numericRepre() == other.numericRepre()
+            return 0
+        if self.numericRepre() > other.numericRepre()
+            return -1
+
+    def numericRepre(self):
+        return self._year*10000+self._months*100+self._days
+
 class Counter():
     """counter."""
     def __init__(self, id):
