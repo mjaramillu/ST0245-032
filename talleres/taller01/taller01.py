@@ -1,6 +1,16 @@
 #!/usr/bin/python
 import math
 
+class Date():
+    """Fecha."""
+    def __init__(self, days, months, year):
+        if days < 0 && days >= 31:
+            raise ValueError("Unexpected number of days")
+        self._days = days
+        if monts < 0 && months >= 12:
+        self._months = months
+        self._year = year
+
 class Counter():
     """counter."""
     def __init__(self):
