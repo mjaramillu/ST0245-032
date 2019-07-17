@@ -3,13 +3,27 @@ import math
 
 class Date():
     """Fecha."""
-    def __init__(self, days, months, year):
-        if days < 0 && days >= 31:
+    def __init__(self, days, months, years):
+        if days <= 0 || days > 31:
             raise ValueError("Unexpected number of days")
         self._days = days
-        if months < 0 && months >= 12:
+        if months <= 0 || months > 12:
+            raise ValueError("Unexpected number of months")
         self._months = months
-        self._year = year
+        if years <= 0 || years > 9999:
+            raise ValueError("Unsupported number of years")
+        self._years = years
+        #Day number validation
+        parity_check = 0
+        if months <= 7:
+            parity_check = 1
+        day_limit = 30 + parity_check
+        if months % 2 == 0:
+            day_limit = 31 - parity_check
+            if months == 2:
+                day_limit = 28
+        if days > day_limit:
+            raise ValueError
 
     def get_days(self):
         return self._days
