@@ -23,7 +23,7 @@ class Date():
             if months == 2:
                 day_limit = 28
         if days > day_limit:
-            raise ValueError
+            raise ValueError("Unexpected number of days")
 
     def get_days(self):
         return self._days
