@@ -1,6 +1,13 @@
 
 # greatest common divider
 def gdc(p, q):
+    if p == 0:
+        return q
+    if q == 0:
+        return p
+    residue = p%q
+    return gdc(q, residue)
+    
 
 # suma grupo
 def sum_group(start, nums, target):
