@@ -5,9 +5,7 @@ def gdc(p, q):
         return q
     if q == 0:
         return p
-    residue = p%q
-    return gdc(q, residue)
-    
+    return gdc(q, p%q)
 
 # suma grupo
 def sum_group(start, nums, target):
@@ -22,7 +20,7 @@ def _combinations_aux (prefix, s):
 # -- TESTS --
 
 def test(value, expected):
-    print("Value:", str(value), "Expected:", str(expected), "Passed:", str(value==expected))
+    print("Value:", str(value), "Expected:", str(expected), "Passed:",  str(value==expected))
 
 test(gcd(12,36),12)
 test(gcd(8,12),4)
