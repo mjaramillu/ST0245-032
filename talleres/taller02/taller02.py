@@ -25,7 +25,14 @@ def sum_group(nums, target):
 
 # combinations
 def combinations(s):
-    return 0
+    if len(nums) == 0: return
+    print (nums)
+    for i in range(len(nums)):
+        mutated = {}
+        for e in range(len(nums)):
+            if i != e:
+                mutated[len(mutated)] = nums[e]
+        sum_group(mutated, target)
 
 # combinations auxiliary
 def _combinations_aux (prefix, s):
