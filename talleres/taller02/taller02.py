@@ -14,14 +14,14 @@ def sum_group(nums, target):
     sum = 0
     for i in range(len(nums)):
         sum = sum + nums[i]
-    sum_exists = sum == target
+    if sum == target: return True
     for i in range(len(nums)):
         mutated = {}
         for e in range(len(nums)):
             if i != e:
                 mutated[len(mutated)] = nums[e]
-        sum_exists = sum_exists | sum_group(mutated, target)
-    return sum_exists
+        if sum_group(mutated, target): return True
+    return false
 
 # combinations
 def combinations(s):
