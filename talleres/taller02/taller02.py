@@ -5,7 +5,7 @@ def gcd(p, q):
         return q
     if q == 0:
         return p
-    return gdc(q, p%q)
+    return gcd(q, p%q)
 
 # suma grupo
 def sum_group(start, nums, target):
