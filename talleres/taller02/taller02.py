@@ -21,18 +21,18 @@ def sum_group(nums, target):
             if i != e:
                 mutated[len(mutated)] = nums[e]
         if sum_group(mutated, target): return True
-    return false
+    return False
 
 # combinations
 def combinations(s):
-    if len(nums) == 0: return
-    print (nums)
-    for i in range(len(nums)):
-        mutated = {}
-        for e in range(len(nums)):
+    if len(s) == 0: return
+    print (s)
+    for i in range(len(s)):
+        mutated = ""
+        for e in range(len(s)):
             if i != e:
-                mutated[len(mutated)] = nums[e]
-        sum_group(mutated, target)
+                mutated = mutated + s[e]
+        combinations(mutated)
 
 # combinations auxiliary
 def _combinations_aux (prefix, s):
