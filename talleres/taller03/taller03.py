@@ -2,6 +2,7 @@
 
 import HES
 
+# La clave es una permutación de abcdefghijkl
 def decrypt_attempt(key):
     result = HES.decrypt_from_file("encryptedFile", key)
     if "42" in result:
