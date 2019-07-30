@@ -5,12 +5,22 @@ import HES
 # La clave es una permutación de abcdefghijkl
 def decrypt_attempt(key):
     result = HES.decrypt_from_file("encryptedFile", key)
-    if "42" in result:
+    if "ything is 42" in result:
         return result
     return False
 
-def hanoi(topN, a = "Tower1", b = "Tower2", c = "Tower3"):
+def hakiar(start):
+    key = "abcd"
+    if decrypt_attempt("abcd") return true
+    else
 
-def subset(s, base = ""):
-
-def permutations(base, stri):
+def generarClave(start, key, change):
+    if(start == len(key)-1) return key
+    if(start == change)
+        change = len(key)-1
+        return generarClave(start+1, key, change)
+    else
+        chart = key[start]
+        key[start] = key[change]
+        key[change] = chart
+        return generarClave(start, key, change-1)
