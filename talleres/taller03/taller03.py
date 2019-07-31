@@ -8,7 +8,7 @@ import time
 # La clave es una permutación de abcdefghijkl
 def decrypt_attempt(key):
     result = HES.decrypt_from_file("encryptedFile", key)
-    if "42" in result:
+    if "ything is 42" in result:
         return result
     return False
 
@@ -23,6 +23,19 @@ def print_hanoi(state):
                 string += "  "
         print(string)
     print("")
+def hakiar(start, key, change):
+    if decrypt_attempt(key)==True:
+         return True
+    if start == change:
+        change = len(key)-1
+        return hakiar(start+1, key, change)
+    else:
+        chart = key[start]
+        key[start] = key[len(key)-1]
+        key[len(key)-1] = chart
+        return hakiar(start, key, change-1)
+    return False
+hakiar(0, "abcdefghijkl", 11)
 
 moves = 0
 
