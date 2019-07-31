@@ -9,18 +9,16 @@ def decrypt_attempt(key):
         return result
     return False
 
-def hakiar(start):
-    key = "abcd"
-    if decrypt_attempt("abcd") return true
-    else
-
-def generarClave(start, key, change):
-    if(start == len(key)-1) return key
-    if(start == change)
+def hakiar(start, key, change):
+    if decrypt_attempt(key)==True:
+         return True
+    if start == change:
         change = len(key)-1
-        return generarClave(start+1, key, change)
-    else
+        return hakiar(start+1, key, change)
+    else:
         chart = key[start]
-        key[start] = key[change]
-        key[change] = chart
-        return generarClave(start, key, change-1)
+        key[start] = key[len(key)-1]
+        key[len(key)-1] = chart
+        return hakiar(start, key, change-1)
+    return False
+hakiar(0, "abcdefghijkl", 11)
