@@ -17,7 +17,7 @@ def encrypt_to_file(message, key, filename):
 def decrypt(message, key):
     decrypted = ""
     for i in range(len(message)):
-        key_index = i % 4
+        key_index = i % len(key)
         key_value = ord(key[key_index])
         message_value = ord(message[i])
         result = (message_value - key_value) % 256

@@ -7,8 +7,12 @@ import time
 
 # La clave es una permutación de abcdefghijkl
 def decrypt_attempt(key):
-    result = HES.decrypt_from_file("encryptedFile", key)
-    if "ything is 42" in result:
+    result = HES.decrypt_from_file("dinosaurios", key)
+    print(key, result)
+    if key == "cdba":
+        print(result)
+        #time.sleep(5)
+    if "dinosaurios" in result:
         return result
     return False
 
@@ -23,19 +27,37 @@ def print_hanoi(state):
                 string += "  "
         print(string)
     print("")
-def hakiar(start, key, change):
-    if decrypt_attempt(key)==True:
-         return True
-    if start == change:
-        change = len(key)-1
-        return hakiar(start+1, key, change)
-    else:
-        chart = key[start]
-        key[start] = key[len(key)-1]
-        key[len(key)-1] = chart
-        return hakiar(start, key, change-1)
-    return False
-hakiar(0, "abcdefghijkl", 11)
+
+attempts = 0
+
+def swap(string, a, b):
+    result = ""
+    for i in range(len(string)):
+        if i == a:
+            result += string[b]
+        elif i == b:
+            result += string[a]
+        else:
+            result += string[i]
+    return result
+
+def hakiar(dict, indices = []):
+    #print(dict, indices)
+    if len(indices) == len(dict):
+        result = ""
+        for i in indices:
+            result += dict[i]
+        decrypt_attempt(result)
+        return
+    for i in range(len(dict)):
+        if not i in indices:
+            new_indices = indices.copy()
+            new_indices.append(i)
+            hakiar(dict,new_indices)
+
+
+
+hakiar("abcd")
 
 moves = 0
 
@@ -68,7 +90,7 @@ def hanoi(topN):
     print_hanoi(state)
     time.sleep(0.5)
     solve_hanoi(state, len(state[0]), 0, 2, 1)
-
+'''
 axis = []
 values = []
 for i in range(1,17):
@@ -77,4 +99,4 @@ for i in range(1,17):
     values.append(moves)
     moves = 0
 plt.plot(axis, values)
-plt.show()
+plt.show()'''
