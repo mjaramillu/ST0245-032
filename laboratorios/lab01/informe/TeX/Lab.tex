@@ -1,0 +1,262 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[hmargin=2cm,top=4cm,headheight=65pt,footskip=45pt]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{array}
+\usepackage{lastpage}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\definecolor{customGray}{RGB}{128,128,128}
+%\definecolor{Eblue}{RGB}{0,21,87}
+%\definecolor{Eblue}{rgb}{0.2, 0.2, 0.6}
+\definecolor{Eblue}{rgb}{0.0, 0.18, 0.39}
+%==============Header & Footnote==============
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C,CO,L,LO,R,RO]{}
+\fancyhead[C]{%
+          \begin{tabular}{|m{3.0cm}|m{10.0cm}|m{2.5cm}|}
+          \hline
+          \centering\vspace{1.75mm}\includegraphics[scale=0.32]{logo.png} &
+          \centering
+          {\footnotesize {\sf UNIVERSIDAD EAFIT\\ SCHOOL OF ENGINEERING\\
+          \vspace{-1mm}DEPARTMENT OF SYSTEMS AND INFORMATICS}} &
+          \centering
+          \footnotesize{Page \thepage\ de \pageref{LastPage}\\
+          ST245\\
+          \vspace{-0.75mm}Data Structures
+          }\tabularnewline
+          \hline
+          \end{tabular}%
+}
+\fancyfoot[C,CO,L,LO,R,RO]{}
+\fancyfoot[C]{
+          \begin{centering}
+            \textcolor{customGray}{{\footnotesize {\sf Professor Mauricio Toro Bermudez\\
+            Phone: $(+57) (4) 261 95 00$ Ext. $9473$. Office: $19 - 627$\\
+            \vspace{-1mm}E-mail: mtorobe@eafit.edu.co}}}
+        \end{centering}
+}
+
+%=============CustomEnumItem===========
+
+\setlist[enumerate]{label=\color{Eblue}\textbf{\roman*.}}
+
+%=============CustomSecSubSec==========
+
+\titleformat{\section}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\itshape\color{Eblue}\thesection)}{2.5mm}{}
+
+\titleformat{\subsection}[hang]
+{\normalsize\bfseries\itshape\color{black}}{\bfseries\color{Eblue}\thesection.\alph{subsection}.}{2.5mm}{}
+
+%==============Title==============
+
+\title{\color{Eblue}\textbf{Laboratory practice No. 1: Recursion}}
+\author{
+  \textbf{Juan P. Ossa Zapata}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  jpossaz@eafit.edu.co
+\and
+  \textbf{Mauricio Jaramillo Uparela}\\
+  Universidad EAFIT\\
+  Medellín, Colombia\\
+  mjaramillu@eafit.edu.co
+}
+
+%=============Document=============
+\begin{document}
+  \maketitle
+  \thispagestyle{fancy}
+
+  \section{ONLINE EXERCISES (CODINGBAT)}
+  \subsection{Recursion I}
+    \begin{enumerate}
+      \item \begin{Verbatim}
+      public int countPairs(String str) {             // c0 * n
+        if (str.length() == 2 || str.length() == 1    // c1 * n
+          || str.length() == 0) {                     // c1 * n
+          return 0;                                   // c2 * n
+        } else if (str.charAt(0) == str.charAt(2)) {  // c2 * n
+          return 1 + countPairs(str.substring(1));    // c2 * T(n-1)
+        } else {                                      // c3
+          return countPairs(str.substring(1));        // c3 * T(n-1)
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public int countHi2(String str) {               // c0 * n
+        if (str.length() == 1 || str.length() == 0) { // c1 * n
+          return 0;                                   // c1 * n
+        } else if (str.charAt(0) == 'x') {            // c2 * n
+          if (str.charAt(1) == 'h'
+          && str.charAt(2) == 'i') {                  // c2 * c3 * n
+            return countHi2(str.substring(2));        // c2 * c3 * T(n-2)
+          } else {                                    // c2 * c4 * T(n-1)
+            return countHi2(str.substring(1));        // c2 * c4 * T(n-1)
+          }
+        } else if (str.charAt(0) == 'h'
+          && str.charAt(1) == 'i') {                  // c5 * n
+          return 1 + countHi2(str.substring(1));      // c5 * T(n-1)
+        } else {                                      // c6 * n
+          return countHi2(str.substring(1));          // c6 * T(n-1)
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public int countAbc(String str) {               // c0 * n
+        if (str.length() == 0 || str.length() == 1
+        || str.length() == 2) {                       // c1 * n
+          return 0;                                   // c1 * n
+        } else if (str.charAt(0) == 'a'
+          && str.charAt(1) == 'b'
+          && (str.charAt(2) == 'c'
+          || str.charAt(2) == 'a')) {                 // c2 * n
+          return 1 + countAbc(str.substring(1));      // c2 * T(n-1)
+        } else {                                      // c3 * n
+          return countAbc(str.substring(1));          // c3 * T(n-1)
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public String parenBit(String str) {
+        if (str.length() == 0 || str.length() == 1) {
+          return "";
+        } else if (str.charAt(0) == '(') {
+          int count = 0;
+          while (str.charAt(count) != ')') {
+            count++;
+          }
+          count++;
+          return str.substring(0, count) + parenBit(str.substring(count));
+        } else {
+          return parenBit(str.substring(1));
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public int strCount(String str, String sub) {
+        if (str.length() == 0) {
+          return 0;
+        } else {
+          int i = 0;
+          while (i < sub.length()) {
+            if (sub.charAt(i) == str.charAt(i)) {
+              i++;
+            } else {
+              break;
+            }
+          }
+          if (i == sub.length()) {
+            return 1 + strCount(str.substring(i), sub);
+          } else {
+            return strCount(str.substring(1), sub);
+          }
+        }
+      }
+      \end{Verbatim}
+    \end{enumerate}
+    \subsection{Recursion II}
+    \begin{enumerate}
+      \item \begin{Verbatim}
+      public boolean splitArray(int[] nums) {
+        return splitArrayAux(nums, 0, 0, 0);
+      }
+      public boolean splitArrayAux(int [] nums, int start,
+        int first, int second) {
+        if (start == nums.length) {
+          return first == second;
+        } else {
+          return splitArrayAux(nums, start + 1,
+            first + nums[start], second)
+          || splitArrayAux(nums, start + 1, first,
+            second + nums[start]);
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public boolean splitOdd10(int[] nums) {
+        return splitOdd10Aux(nums, 0, 0, 0);
+      }
+      public boolean splitOdd10Aux(int [] nums, int start,
+        int first, int second) {
+        if (start == nums.length) {
+          return (first % 10 == 0) && (second % 2 != 0);
+        } else {
+          return splitOdd10Aux(nums, start + 1,
+            first + nums[start], second) ||
+          splitOdd10Aux(nums, start + 1,
+            first, second + nums[start]);
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public boolean groupSumClump(int start, int[] nums, int target) {
+        if (start >= nums.length) {
+          return target == 0;
+        }
+        int sum = 0;
+        int i;
+        for (i = start; i < nums.length; i++) {
+          if (nums[i] == nums[start]){
+            sum += nums[start];
+          } else {
+            break;
+          }
+        }
+        return groupSumClump(i, nums, target - sum)
+        || groupSumClump(i, nums, target);
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public boolean groupSum5(int start, int[] nums, int target) {
+        if (start == nums.length) {
+          return target == 0;
+        } else {
+          if (nums[start] % 5 == 0) {
+            return groupSum5(start + 1, nums, target - nums[start]);
+          } else if (start > 0 && nums[start] == 1
+            && nums[start - 1] % 5 == 0) {
+            return groupSum5(start + 1, nums, target);
+          } else {
+            return groupSum5(start + 1, nums, target - nums[start])
+            || groupSum5(start + 1, nums, target);
+          }
+        }
+      }
+      \end{Verbatim}
+      \item \begin{Verbatim}
+      public boolean split53(int[] nums) {
+        return split53Aux(nums, 0, 0, 0);
+      }
+      public boolean split53Aux(int [] nums, int start,
+        int first, int second) {
+        if (start == nums.length) {
+          return first == second;
+        } else {
+          if (nums[start] % 5 == 0) {
+            return split53Aux(nums, start + 1, first + nums[start], second);
+          } else if (nums[start] % 3 == 0) {
+            return split53Aux(nums, start + 1, first, second + nums[start]);
+          } else {
+            return split53Aux(nums, start + 1, first + nums[start], second)
+            || split53Aux(nums, start + 1, first, second + nums[start]);
+          }
+        }
+      }
+      \end{Verbatim}
+    \end{enumerate}
+    \section{What did you learn about \texttt{Stack Overflow}?}
+      The Stack Overflow error is caused by a bad recursive call -for example you do not make
+      the problem simpler every time you make a recursive call- or when you do not have a stopping
+      condition. In Java,
+\end{document}
