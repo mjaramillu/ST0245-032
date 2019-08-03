@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1564794235 "Lab.tex" "Lab.pdf" "Lab" 1564794235
+["pdflatex"] 1564794235 "Lab.tex" "Lab.pdf" "Lab" 1564799266
   "/dev/null" 1564782986 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1557554374 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1557554374 1004 54797486969f23fa377b128694d548df ""
@@ -83,10 +83,10 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1564297614 7979416 552dd847b9848dabef87e66d68590ef4 ""
   "Lab.aux" 1564794235 1267 8af2262b4440fa8e01a5d7e0a290b137 "pdflatex"
   "Lab.out" 1564794235 261 d20b64998281c702851a5c24c94b75fb "pdflatex"
-  "Lab.tex" 1564794235 9097 f7aa4ebdc648afd3acc18bf2823643ff ""
+  "Lab.tex" 1564799266 9097 f7aa4ebdc648afd3acc18bf2823643ff ""
   "logo.png" 1503245471 12931 c241aec18ac04e4725d8e930c7d03583 ""
   (generated)
-  "Lab.pdf"
-  "Lab.out"
   "Lab.log"
+  "Lab.out"
+  "Lab.pdf"
   "Lab.aux"
