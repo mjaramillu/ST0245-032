@@ -57,7 +57,7 @@ def hakiar(dict, indices = []):
 
 
 
-hakiar("abcd")
+#hakiar("abcd")
 
 moves = 0
 
@@ -90,7 +90,7 @@ def hanoi(topN):
     print_hanoi(state)
     time.sleep(0.5)
     solve_hanoi(state, len(state[0]), 0, 2, 1)
-'''
+
 axis = []
 values = []
 for i in range(1,17):
@@ -99,4 +99,4 @@ for i in range(1,17):
     values.append(moves)
     moves = 0
 plt.plot(axis, values)
-plt.show()'''
+plt.show()
