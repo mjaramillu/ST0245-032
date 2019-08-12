@@ -1,0 +1,197 @@
+% This is "sig-alternate.tex" V2.1 April 2013
+% This file should be compiled with V2.5 of "sig-alternate.cls" May 2012
+%
+% This example file demonstrates the use of the 'sig-alternate.cls'
+% V2.5 LaTeX2e document class file. It is for those submitting
+% articles to ACM Conference Proceedings WHO DO NOT WISH TO
+% STRICTLY ADHERE TO THE SIGS (PUBS-BOARD-ENDORSED) STYLE.
+% The 'sig-alternate.cls' file will produce a similar-looking,
+% albeit, 'tighter' paper resulting in, invariably, fewer pages.
+%
+% ----------------------------------------------------------------------------------------------------------------
+% This .tex file (and associated .cls V2.5) produces:
+%       1) The Permission Statement
+%       2) The Conference (location) Info information
+%       3) The Copyright Line with ACM data
+%       4) NO page numbers
+%
+% as against the acm_proc_article-sp.cls file which
+% DOES NOT produce 1) thru' 3) above.
+%
+% Using 'sig-alternate.cls' you have control, however, from within
+% the source .tex file, over both the CopyrightYear
+% (defaulted to 200X) and the ACM Copyright Data
+% (defaulted to X-XXXXX-XX-X/XX/XX).
+% e.g.
+% \CopyrightYear{2007} will cause 2007 to appear in the copyright line.
+% \crdata{0-12345-67-8/90/12} will cause 0-12345-67-8/90/12 to appear in the copyright line.
+%
+% ---------------------------------------------------------------------------------------------------------------
+% This .tex source is an example which *does* use
+% the .bib file (from which the .bbl file % is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission, you *NEED* to 'insert'
+% your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+%
+% ================= IF YOU HAVE QUESTIONS =======================
+% Questions regarding the SIGS styles, SIGS policies and
+% procedures, Conferences etc. should be sent to
+% Adrienne Griscti (griscti@acm.org)
+%
+% Technical questions _only_ to
+% Gerald Murray (murray@hq.acm.org)
+% ===============================================================
+%
+% For tracking purposes - this is V2.0 - May 2012
+
+\documentclass{acm_proc_article-sp}
+
+
+\begin{document}
+
+% Copyright
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+
+
+%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{Wireless sensors for detecting rust in caturra coffee: Data structures for the prediction of infected crops.}
+
+
+\numberofauthors{3} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+Juan Pablo Ossa Zapata\\
+       \affaddr{Eafit University}\\
+       \affaddr{Colombia}\\
+       \email{jpossaz@eafit.edu.co}
+% 2nd. author
+\alignauthor
+Mauricio Jaramillo Uparela\\
+       \affaddr{Eafit University}\\
+       \affaddr{Colombia}\\
+       \email{mjaramillu@eafit.edu.co}
+\alignauthor
+Mauricio Toro\\
+        \affaddr{Eafit University}\\
+        \affaddr{Colombia}\\
+        \email{mtorobe@eafit.edu.co}}
+
+% There's nothing stopping you putting the seventh, eighth, etc.
+% author on the opening page (as the 'third row') but we ask,
+% for aesthetic reasons that you place these 'additional authors'
+% in the \additional authors block, viz.
+\date{11 August 2019}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+\maketitle
+\begin{abstract}
+The objective of this report is to analyze and propose a possible solution to the late detection of Roya, one of the most catastrophic plant diseases in history, present in coffee crops in several Latin American countries, including Colombia.  In order to do so, an algorithm will be developed that through the study of data collected by a network of wireless sensors is able to analyze and predict which crops have or are likely to have this fungus.
+The solution to this problem is of paramount importance to the Colombian peasantry because more than half a million families depend on these crops for their livelihoods.  For this reason, it is our responsibility as Colombians to contribute to the development of technologies capable of reducing the impact of this infection in the countryside of our country. Like this one, there are similar problems with solutions that can help us to solve our problems, later we will review some of them in order to find the best possible solution.
+
+\end{abstract}
+
+
+%
+% The code below should be generated by the tool at
+% http://dl.acm.org/ccs.cfm
+% Please copy and paste the code instead of the example below.
+
+
+%
+% End generated code
+%
+
+%
+%  Use this command to print the description
+%
+
+\section{Introduction}
+Colombia, a country recognized for its great variety of crops and the quality of its products abroad, has been constantly threatened by the problem of a fungus that has been affecting one of its most desired products internationally, coffee. With more than 563,000 families approximately, the guild of coffee growers makes possible the export of 13.5 million bags of coffee a year, thus achieving to be the main agricultural export product of the country. However, this product has been going through very critical times due to a pest known as Roya, which due to its late diagnosis, makes it very difficult to treat and thus end up with much of the crops.
+In search of a solution to this problem, the use of a network of wireless sensors has been proposed to maintain these crops with constant monitoring where physical and chemical data related to the appearance of this fungus will be collected.a
+
+\section{Problem}
+The problem we face is based on creating, through the use of data structures, a system capable of relating the data already studied of Caturra coffee plants achieving to establish parameters and possible causes that make the Rust appear in coffee crops, so as to know beforehand if there is the presence of this fungus in the crop studied.
+To achieve this purpose will represent a great advance for the Colombian agriculture, achieving this way by means of its implementation in the cultures of Caturra coffee to diminish the high quantity of cultures lost by cause of the Rust.
+
+\section{Related work}
+\subsection{ID3 algorithm}
+ID3 is an algorithm to generate a decision tree created by Ross Quinlan focused on the search for hypotheses or rules based on a set of examples formed by a series of continuous data called attributes in which one will be the attribute to classify. This, also known as objective, is of binary type, that is, it will have values such as positive or negative, yes or no, valid or invalid, etc.
+The ID3, based on the previously entered examples, tries to obtain the hypotheses by means of which to classify new instances in positive or negative. Figure 1 shows a decision tree generated by the ID3 algorithm.
+
+\subsection{C4.5 algorithm}
+This algorithm, developed by Ross Quinlan, is an extension of the ID3 algorithm mentioned above. C4.5 constructs decision trees from a set of training data in the same way that ID3 does, using the concept of information entropy. At each tree node, the algorithm chooses a data attribute that divides the set of samples into subsets as efficiently as possible. In this way, the attribute with the highest gain of normalized information is chosen as the decision parameter. In order to recursively divide the data into smaller lists.
+This algorithm has three base cases:
+\begin{itemize}
+\item First case: All samples belong to the same class, for which the algorithm creates a sheet node for the decision tree telling you to choose that class.
+\item Second case: None of the characteristics provides any information gain. In this case, C4.5 creates a decision node above the tree using the expected value of the class.
+\item Third case: Instance of the previously unseen class found. For this case, C4.5 will do the same as the previous case.
+\end{itemize}
+Quinlan in search of a better algorithm that the ID3 added to C4.5 some improvements like the management of both continuous and discrete attributes, management of formation data with missing attribute values, management of attributes with different costs and the elimination of the branches that do not help in the solution, replacing them with leaf node.
+
+\subsection{CART algorithm}
+As the name implies, CART is a technique with which classification and regression trees can be obtained. When the target variable is discrete, classification is used; when it is continuous, regression is used. The trees created by the CART algorithm are usually very easy to interpret. These trees use historical data with which you build regression trees that allow you to classify and predict new data.
+In general, this algorithm finds the independent variable that best separates our data into groups, expressing it as a rule to assign its corresponding node. Then, for each of the resulting groups, the same process is repeated recursively until it is not possible to obtain a better separation.
+
+\subsection{CHAID algorithm}
+CHAID, or Chi-squared Automatic Interaction Detection, is a classification method for generating decision trees by chi-square statistics to identify optimal divisions. It was proposed by Gordon V. Kass in 1980 and is currently one of the most used in marketing studies.
+
+
+
+\begin{thebibliography}{9}
+
+\bibitem{croplife}
+CropLife Latin America. Roya del Cafeto.
+\\\texttt{https://www.croplifela.org/es/plagas/listado-de-plagas/roya-del-cafeto}
+
+\bibitem{des_tree}
+Charris, L Henríquez, C, Hernández, S, Jimeno, L, Guillen, O, Moreno S.
+\textit{Análisis comparativo de algoritmos de árboles de decisión en el procesamiento de datos biológicos}.
+
+\bibitem{ID3}
+Centro de Estudios y Aplicaciones Logísticas. Faculty of Engineering of the National University of Cuyo.
+\textit{Algoritmo ID3}.
+
+\bibitem{des_r}
+Bosco, J.
+\textit{Árboles de decisión con R clasificación}.
+
+\bibitem{chaid}
+IBM.
+\textit{Nodo Chaid}.
+
+\bibitem{cfourfive}
+Quinlan, J. R.
+\textit{C4.5: Programs for Machine Learning. Morgan Kaufmann Publishers, 1993.}
+
+\end{thebibliography}
+
+
+
+\end{document}
