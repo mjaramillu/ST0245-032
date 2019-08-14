@@ -11,4 +11,4 @@ def insertion_sort(arr, i=1):
             return insertion_sort(arr, i-1)
         else:
             return insertion_sort(arr,i+1)
-print(insertion_sort([6,4,2,3,1,8,7]))
+print(insertion_sort([9,76,8,5,0,2,9,1,7.2,-1,4,3]))
