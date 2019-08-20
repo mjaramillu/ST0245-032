@@ -15,7 +15,7 @@ def longest_common_subsequence(chain_a, chain_b, index_a = -2, index_b = -2):
 
 # Compute the number of ways in which a 2*1 rectange can fit into a 2*n board.
 def rectangles_in_board(n):
-    if n == 0 or n == 1:
+    if n == 0 or n == 1: # Not the worst case
         return 1
-    else:
-        return rectangles_in_board(n-1) + rectangles_in_board(n-2)
+    else: # Worst case
+        return rectangles_in_board(n-1) + rectangles_in_board(n-2) # C1 + T(n-1) + T(n-2) = c_1 2^(n-1) + c_1 (2^n - 1)

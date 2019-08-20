@@ -1,9 +1,8 @@
 import general
 import os
 import sys
-
-#TODO: CITATION: https://www.mkyong.com/python/python-how-to-list-all-files-in-a-directory/
-#TODO: CITATION: https://www.guru99.com/reading-and-writing-files-in-python.html
+import time
+import matplotlib.pyplot as pl
 
 def obtain_dna_files():
     path = "dna_samples/"
@@ -35,7 +34,7 @@ def compare_dna_files():
 def test(value, expected):
     print("Value:", str(value), "Expected:", str(expected), "Passed:",  str(value==expected))
 
-print("Testing lcs...")
+'''print("Testing lcs...")
 test(general.longest_common_subsequence("AXYT", "AYZX"),2)
 test(general.longest_common_subsequence("AGGGGGTAB", "GXTXAYB"),4)
 test(general.longest_common_subsequence("ABCDGH", "AEDFHR"),3)
@@ -47,3 +46,18 @@ test(general.rectangles_in_board(3),3)
 test(general.rectangles_in_board(4),5)
 test(general.rectangles_in_board(5),8)
 test(general.rectangles_in_board(10),89)
+'''
+
+deltas = []
+ns = []
+for i in range(40):
+    begin_time = time.time()
+    general.rectangles_in_board(i)
+    end_time = time.time()
+    delta = end_time - begin_time
+    ns.append(i)
+    print(i)
+    deltas.append(delta)
+
+pl.plot(ns, deltas)
+pl.show()
