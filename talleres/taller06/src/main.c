@@ -73,6 +73,25 @@ void CustomArray_Delete (CustomArray* target, u64 index) {
   }
 }
 
+void CustomArray_Insert (CustomArray* target, u64 index, unsigned char value) {
+  if (index < target->size) {                                           //O(1)
+    target->size += 1;                                                  //O(1)
+    unsigned char* data = malloc(sizeof(unsigned char) * target->size); //O(1)
+    for (u64 i = 0; i < index; i++) {                                   //O(n)
+      data[i] = target->data[i];                                        //O(n)
+    }
+    for (u64 i = index+1; i < target->size; i++) {                        //O(n)
+      data[i] = target->data[i -1];                                    //O(n)
+    }
+    data[index] = value;                                                //O(1)
+    free(target->data);                                                 //O(1)
+    target->data = data;                                                //O(1)
+  }
+  else {
+    printf("Array index overflow!\n");
+  }
+}
+
 int main(int argc, char* argv[]) {
   CustomArray* testArray = CustomArray_Create(3);
   for (int i = 0; i < 3; i++) {
