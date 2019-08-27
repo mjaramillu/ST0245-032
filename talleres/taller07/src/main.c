@@ -32,13 +32,41 @@ char ListNode_Contains (ListNode* target, char value){
   if (target-> Value == value) return 1;
   if (target-> Next == NULL) return 0;
   else {
-    return ListNode_Contains (target-> Next, value)
+    return ListNode_Contains (target-> Next, value);
+  }
+}
+
+void LinkedList_InsertAt (LinkedList* target, u64 index, char value) {
+  if (index < result->Length) {
+    if (index == 0) {
+      LinkedList_InsertAtHead(target, value);
+    }
+    ListNode_InsertRecursive(target, index - 1, value);
+    ListNode->Length += 1;
+
   }
 }
 
 char LinkedList_GetAt (LinkedList* target, u64 index) {
   if (index < result->Length) {
     ListNode_GetRecursive(target->First, index);
+  }
+}
+
+void LinkedList_RemoveAtHead (LinkedList* target) {
+  ListNode* headElement = target->First;
+  if (headElement->Next != NULL) {
+    target->First = headElement->Next;
+  }
+  LinkedList_Free(headElement);
+}
+
+void LinkedList_RemoveAt (LinkedList* target, u64 index) {
+  if (index < result->Length) {
+    if (index == 0) {
+      LinkedList_RemoveAtHead(target);
+    }
+    ListNode_RemoveRecursive(target->First, index - 1);
   }
 }
 
@@ -65,7 +93,29 @@ char ListNode_GetRecursive (ListNode* target, u64 depth) {
   if (depth == 0) {
     return target->Value;
   }
-  return ListNode_GetRecursive(target->Next, depth-1));
+  return ListNode_GetRecursive(target->Next, depth-1);
+}
+
+void ListNode_InsertRecursive (ListNode* target, u64 depth, char value) {
+  if (depth == 0) {
+    ListNode* newNode = ListNode_Create(value);
+    newNode->Next = target->Next;
+    target->Next = newNode;
+    return 0;
+  }
+  ListNode_InsertRecursive(target->Next, depth - 1, value);
+}
+
+void ListNode_RemoveRecursive (ListNode* target, u64 depth) {
+  if (depth == 0) {
+    ListNode* next = target->Next;
+    if (next->Next != NULL) {
+      target->Next = next->Next;
+    }
+    ListNode_Free(next);
+    return 0;
+  }
+  ListNode_InsertRecursive(target->Next, depth - 1, value);
 }
 
 int main(int argc, char* argv[]) {
