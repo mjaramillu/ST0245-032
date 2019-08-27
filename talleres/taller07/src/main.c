@@ -25,6 +25,17 @@ void LinkedList_InsertAtHead (LinkedList* target, char value) {
   target->First = newNode;
 }
 
+char LinkedList_Contains(LinkedList* target ,char value) {
+  return ListNode_Contains(target->First, value);
+}
+char ListNode_Contains (ListNode* target, char value){
+  if (target-> Value == value) return 1;
+  if (target-> Next == NULL) return 0;
+  else {
+    return ListNode_Contains (target-> Next, value)
+  }
+}
+
 char LinkedList_GetAt (LinkedList* target, u64 index) {
   if (index < result->Length) {
     ListNode_GetRecursive(target->First, index);
@@ -54,7 +65,7 @@ char ListNode_GetRecursive (ListNode* target, u64 depth) {
   if (depth == 0) {
     return target->Value;
   }
-  return ListNode_GetRecursive(ListNode_GetRecursive(target->Next, depth-1));
+  return ListNode_GetRecursive(target->Next, depth-1));
 }
 
 int main(int argc, char* argv[]) {
