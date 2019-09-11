@@ -5,7 +5,7 @@
 
 typedef struct Stack {
   unsigned char stackIndex;
-  unsigned char data[256];
+  char data[256];
 } Stack;
 
 Stack* Stack_Create();
