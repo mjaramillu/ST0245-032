@@ -4,7 +4,7 @@ Queue* Queue_Create() {
   return malloc(sizeof(Queue));
 }
 
-void Queue_Free(Stack* target) {
+void Queue_Free(Queue* target) {
   free(target);
 }
 

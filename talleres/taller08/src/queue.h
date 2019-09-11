@@ -7,7 +7,7 @@ typedef struct Queue {
   unsigned char queueStart;
   unsigned char queueEnd;
   char data[256];
-} Stack;
+} Queue;
 
 Queue* Queue_Create();
 
