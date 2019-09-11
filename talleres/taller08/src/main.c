@@ -50,6 +50,45 @@ int ParseOperation (char* input) {
   return result;
 }
 
+void Fridges(char* storage, char* requests) {
+  Stack* storageStack = Stack_Create();
+  for (unsigned char i = 0; storage[i] != '\0'; i++) {
+    Stack_Push(storageStack, storage[i]);
+  }
+  Queue* requestsQueue = Queue_Create();
+  for (unsigned char i = 0; storage[i] != '\0'; i++) {
+    Queue_Add(storageStack, storage[i]);
+  }
+  char result[255][255];
+  for (unsigned char x = 0; x < 255; x++) {
+    for (unsigned char y = 0; y < 255; y++) {
+      result[x][y] = '\0';
+    }
+  }
+  while(requestsQueue->queueStart != requestsQueue->queueEnd) {
+    char store = Queue_Poll(requestsQueue);
+    char count = Queue_Poll(requestsQueue);
+    unsigned char currentFridges = (unsigned char)result[(unsigned char)store][0];
+    for(unsigned char i = currentFridges + 1; i <= count + currentFridges; i++) {
+      result[(unsigned char)store][i] = Stack_Pop(storageStack);
+    }
+  }
+  for (unsigned char i = 0; i < 255; i++) {
+    if(result[i][0] > 0) {
+      printf("Fridges for store %c:\n", (char)i);
+      for (int j = 1; result[i][j] != '\0'; j++) {
+        if (j != 1) {
+          printf(", ");
+        }
+        printf("%c", (char)result[i][j]);
+      }
+      printf("\n");
+    }
+  }
+  Stack_Free(storageStack);
+  Queue_Free(requestsQueue);
+}
+
 int main(int argc, char* argv[]) {
   unsigned char test = ParseOperation("4 6 4 - +");
   printf("The result is %d\n", test);
