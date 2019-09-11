@@ -1,4 +1,4 @@
-#Complejidad O(n^2)
+//Complejidad O(n^2)
 public int maxSpan(int[] nums) {
   int Span = 0;
   for(int i = 0; i<nums.length; i++)
@@ -14,7 +14,7 @@ public int maxSpan(int[] nums) {
   }
   return Span;
 }
-#Complejidad: O(n^2)
+//Complejidad: O(n^2)
 public int[] fix34(int[] nums) {
   int lastIndex4 = 0;
   for(int i = 0; i<nums.length; i++)
@@ -36,7 +36,7 @@ public int[] fix34(int[] nums) {
   }
   return nums;
 }
-#Complejidad: O(n^2)
+//Complejidad: O(n^2)
 public int[] fix45(int[] nums) {
   for(int i = 0; i<nums.length; i++)
   {
@@ -64,7 +64,7 @@ public int[] fix45(int[] nums) {
   }
   return nums;
 }
-#Complejidad: O(n^2)
+//Complejidad: O(n^2)
 public boolean linearIn(int[] outer, int[] inner) {
 
   for(int i = 0; i<inner.length;i++)
@@ -85,7 +85,7 @@ public boolean linearIn(int[] outer, int[] inner) {
   }
   return true;
 }
-#Complejidad: O(n^2)
+//Complejidad: O(n^2)
 public int maxMirror(int[] nums) {
   int max = 0;
   for(int i = 0; i < nums.length; i++)
