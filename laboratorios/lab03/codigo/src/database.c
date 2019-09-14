@@ -31,3 +31,15 @@ void Database_QueryCoursesFromStudent(Database* target, char* studentName, unsig
     printf("Unable to find student %s\n", courseName);
   }
 }
+
+Database* Database_New() {
+  Database* result = malloc(sizeof(Database));
+  result->Students = NodeList_New();
+  result->Courses = NodeList_New();
+  return result;
+}
+void Database_Free(Database* target) {
+  NodeList_Free(target->Students);
+  NodeList_Free(target->Courses);
+  free(target);
+}

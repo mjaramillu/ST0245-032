@@ -13,4 +13,10 @@ unsigned long NodeList_BalancedLookupIndex(NodeList* target, char* nameToFind);
 
 Node* NodeList_BalancedLookup(NodeList* target, char* nameToFind);
 
+void NodeList_BalancedInsert(NodeList* target, Node* toInsert);
+
+NodeList* NodeList_New();
+
+void NodeList_Free(NodeList* target);
+
 #endif
