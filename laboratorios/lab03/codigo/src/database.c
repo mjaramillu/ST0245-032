@@ -19,7 +19,15 @@ void Database_QueryStudentsFromCourse(Database* target, char* courseName, unsign
     }
   }
   if (foundTarget) {
-    for(unsigned long i = 0; i < target->Courses[pivot]->LinkCount; i++)
+    printf("The course was found!\n");
+    Course* selectedCourse = target->Courses[pivot]
+    for(unsigned long i = 0; i < selectedCourse->LinkCount; i++) {
+      if(selectedCourse->Links[i]->Semester == semester) {
+        char* studentName = selectedCourse->Links[i]->Student->Name;
+        unsigned char grade = selectedCourse->Links[i]->Grade;
+        printf("%s - %d\n", studentName, grade);
+      }
+    }
   } else {
     printf("Unable to find course %s\n", courseName);
   }

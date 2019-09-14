@@ -2,7 +2,6 @@ echo "<-> Cleaning up..."
 
 rm ./bin/Debug/*
 rm ./obj/Debug/*
-rm ./src/*.h
 rm Lab03.make
 rm Makefile
 

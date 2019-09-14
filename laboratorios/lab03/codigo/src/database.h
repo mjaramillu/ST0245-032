@@ -6,9 +6,9 @@
 #include "comparisons.h"
 
 typedef struct Database {
-  Student* Students;
+  Node** Students;
   unsigned long StudentCount;
-  Course* Courses;
+  Node** Courses;
   unsigned long CourseCount;
 } Database;
 
