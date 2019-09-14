@@ -1,15 +1,11 @@
 #ifndef DATABASE
 #define DATABASE
 
-#include "course.h"
-#include "student.h"
-#include "comparisons.h"
+#include "nodelist.h"
 
 typedef struct Database {
-  Node** Students;
-  unsigned long StudentCount;
-  Node** Courses;
-  unsigned long CourseCount;
+  NodeList* Students;
+  NodeList* Courses;
 } Database;
 
 void Database_QueryStudentsFromCourse(Database* target, char* courseName, unsigned short semester);
