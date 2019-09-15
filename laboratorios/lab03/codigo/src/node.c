@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "node.h"
 
 Node* Node_New(char* name) {
   Node* result = malloc(sizeof(Node));

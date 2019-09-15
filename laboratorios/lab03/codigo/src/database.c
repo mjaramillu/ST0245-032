@@ -28,7 +28,7 @@ void Database_QueryCoursesFromStudent(Database* target, char* studentName, unsig
       }
     }
   } else {
-    printf("Unable to find student %s\n", courseName);
+    printf("Unable to find student %s\n", studentName);
   }
 }
 
@@ -57,7 +57,7 @@ void Database_PopulateFromCSV(Database* target, char* path) {
   }
   while((read = getline(&line, &len, fp)) != -1) {
     unsigned char columnId = 0;
-    char* ptr = strtok(str, ",");
+    char* ptr = strtok(line, ",");
     while(ptr != NULL) {
       printf("%d - %s\n", columnId, ptr);
       ptr = strtok(NULL, ",");

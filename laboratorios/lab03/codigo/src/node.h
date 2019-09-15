@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "link.h"
 
+typedef struct Link Link;
+
 typedef struct Node {
   char* Name;
   Link** Links;
