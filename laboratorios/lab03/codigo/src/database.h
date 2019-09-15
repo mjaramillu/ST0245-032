@@ -14,5 +14,6 @@ void Database_QueryCoursesFromStudent(Database* target, char* studentName, unsig
 Database* Database_New();
 void Database_Free(Database* target);
 
+void Database_PopulateFromCSV(Database* target, char* path);
 
 #endif
