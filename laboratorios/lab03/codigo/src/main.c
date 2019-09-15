@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define u64 unsigned long long int
+#include "database.h"
 
 int main(int argc, char* argv[]) {
-  printf("Holi mundo :v\n");
+  Database* testDb = Database_New();
+  Database_PopulateFromCSV(testDb, "./datasets/NOTAS-ST0242.csv");
+  Database_Free(testDb);
   return 0;
 }

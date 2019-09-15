@@ -55,14 +55,74 @@ void Database_PopulateFromCSV(Database* target, char* path) {
     printf("Unable to load file %s!\n", path);
     return;
   }
+
+  unsigned long lineId = 0;
+
+  char* previousStudentName = "";
+  char* previousCourseName = "";
+  unsigned char previousGrade = 0;
+  unsigned short previousSemester = 0;
+
   while((read = getline(&line, &len, fp)) != -1) {
-    unsigned char columnId = 0;
-    char* ptr = strtok(line, ",");
-    while(ptr != NULL) {
-      printf("%d - %s\n", columnId, ptr);
-      ptr = strtok(NULL, ",");
-      columnId++;
+    if ((read > 1) & (lineId != 0)) {
+      unsigned char columnId = 0;
+
+      char* studentName;
+      char* courseName;
+      unsigned char grade;
+      unsigned short semester;
+
+      char* ptr = strtok(line, ",");
+      while(ptr != NULL) {
+        //printf("%d - %s\n", columnId, ptr);
+        if (columnId == 0) {
+          studentName = malloc(sizeof(char) * (strlen(ptr) + 1));
+          strcpy(studentName, ptr);
+        }
+        if (columnId == 8) {
+          courseName = malloc(sizeof(char) * (strlen(ptr) + 1));
+          strcpy(courseName, ptr);
+        }
+        if (columnId == 3) {
+          char* end;
+          semester = strtol(ptr, &end, 10);
+        }
+        if (columnId == 10) {
+          char* end;
+          grade = strtol(ptr, &end, 10);
+        }
+        ptr = strtok(NULL, ",");
+        columnId++;
+      }
+      if (columnId == 11) {
+        ComparisonResult studentNameComparison = Comparisons_CompareStrings(previousStudentName, studentName);
+        ComparisonResult courseNameComparison = Comparisons_CompareStrings(previousCourseName, courseName);
+        if ((courseNameComparison != EQUAL) | (studentNameComparison != EQUAL) | (previousGrade != grade) | (previousSemester != semester)) {
+          printf("%s - %s - %d - %d\n", studentName, courseName, semester, grade);
+          printf("Looking up student %s\n", studentName);
+          Node* studentNode = NodeList_BalancedLookup(target->Students, studentName);
+          if (studentNode == NULL) {
+            printf("Student %s not found! Creating it...\n", studentName);
+            studentNode = Node_New(studentName);
+            printf("Adding to list...\n");
+            NodeList_BalancedInsert(target->Students, studentNode);
+            NodeList_Debug(target->Students);
+          }
+          Node* courseNode = NodeList_BalancedLookup(target->Courses,courseName);
+          if (courseName == NULL) {
+            printf("Course %s not found! Creating it...\n", courseName);
+            courseNode = Node_New(courseName);
+            printf("Adding to list...\n");
+            NodeList_BalancedInsert(target->Courses, courseNode);
+          }
+          previousStudentName = studentName;
+          previousCourseName = courseName;
+          previousGrade = grade;
+          previousSemester = semester;
+        }
+      }
     }
+    lineId++;
   }
   fclose(fp);
   if (line) {
