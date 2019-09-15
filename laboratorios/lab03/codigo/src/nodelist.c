@@ -1,27 +1,32 @@
 #include "nodelist.h"
 
 void NodeList_Debug(NodeList* target) {
+  unsigned long count = 0;
   for (unsigned long i = 0; i < target->Size; i++) {
-    printf("%s\n", target->Data[i]->Name);
+    Node* lookup = NodeList_BalancedLookup(target, target->Data[i]->Name);
+    printf("%s, %x\n", target->Data[i]->Name, lookup);
+    if (lookup==NULL) count++;
   }
+  printf("%d weren't found \n", count);
 }
 
 unsigned long NodeList_BalancedLookupIndex(NodeList* target, char* nameToFind) {
   unsigned long start = 0;
-  unsigned long end = target->Size - 1;
+  unsigned long end = target->Size;
   unsigned long diff = end;
   unsigned long pivot = start + (diff / 2);
   char* pivotName = target->Data[pivot]->Name;
   while(diff > 1) {
     ComparisonResult comparison = Comparisons_CompareStrings(nameToFind,pivotName);
-    if (comparison == GREATER) { start = pivot + 1; }
-    if (comparison == LESSER) { end = pivot - 1; }
+    if (comparison == GREATER) { start = pivot; }
+    if (comparison == LESSER) { end = pivot; }
     if (comparison == EQUAL) {
       break;
     }
     diff = end - start;
     pivot = start + (diff / 2);
-    char* pivotName = target->Data[pivot]->Name;
+    pivotName = target->Data[pivot]->Name;
+    //printf("%s, %s, start %d, end %d, diff %d, pivot %d\n", nameToFind, pivotName, start, end, diff, pivot);
   }
   return pivot;
 }
@@ -47,6 +52,7 @@ void NodeList_Sort(NodeList* target) {
 Node* NodeList_BalancedLookup(NodeList* target, char* nameToFind) {
   if (target->Data == NULL) return NULL;
   unsigned long index = NodeList_BalancedLookupIndex(target, nameToFind);
+  //printf("Index %d\n", index);
   if (index >= target->Size || index < 0) return NULL;
   Node* result = target->Data[index];
   ComparisonResult comparison = Comparisons_CompareStrings(result->Name, nameToFind);

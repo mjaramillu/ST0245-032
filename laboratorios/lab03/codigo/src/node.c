@@ -3,6 +3,8 @@
 Node* Node_New(char* name) {
   Node* result = malloc(sizeof(Node));
   result->Name = name;
+  result->Links = NULL;
+  result->LinkCount = 0;
   return result;
 }
 
@@ -16,7 +18,7 @@ void Node_AddLink(Node* target, Link* toAdd) {
     newLinks[i] = target->Links[i];
   }
   newLinks[target->LinkCount] = toAdd;
-  free(target->Links);
+  if(target->Links != NULL) free(target->Links);
   target->Links = newLinks;
   target->LinkCount++;
 }

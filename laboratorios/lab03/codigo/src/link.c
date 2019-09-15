@@ -6,7 +6,9 @@ Link* Link_New(Node* student, Node* course, unsigned char grade, unsigned short 
   result->Course = course;
   result->Grade = grade;
   result->Semester = semester;
+  printf("Adding to student\n");
   Node_AddLink(student, result);
+  printf("Adding to course\n");
   Node_AddLink(course, result);
   return result;
 }
