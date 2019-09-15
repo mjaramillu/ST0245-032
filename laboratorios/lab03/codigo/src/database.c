@@ -43,3 +43,29 @@ void Database_Free(Database* target) {
   NodeList_Free(target->Courses);
   free(target);
 }
+
+void Database_PopulateFromCSV(Database* target, char* path) {
+  FILE* fp;
+  char* line = NULL;
+  size_t len = 0;
+  ssize_t read;
+
+  fp = fopen(path, "r");
+  if (fp == NULL) {
+    printf("Unable to load file %s!\n", path);
+    return;
+  }
+  while((read = getline(&line, &len, fp)) != -1) {
+    unsigned char columnId = 0;
+    char* ptr = strtok(str, ",");
+    while(ptr != NULL) {
+      printf("%d - %s\n", columnId, ptr);
+      ptr = strtok(NULL, ",");
+      columnId++;
+    }
+  }
+  fclose(fp);
+  if (line) {
+    free(line);
+  }
+}

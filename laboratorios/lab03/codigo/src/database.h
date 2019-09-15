@@ -1,6 +1,8 @@
 #ifndef DATABASE
 #define DATABASE
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "nodelist.h"
 
 typedef struct Database {
