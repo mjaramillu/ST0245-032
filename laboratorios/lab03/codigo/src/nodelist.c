@@ -9,8 +9,8 @@ void NodeList_Debug(NodeList* target) {
 unsigned long NodeList_BalancedLookupIndex(NodeList* target, char* nameToFind) {
   unsigned long start = 0;
   unsigned long end = target->Size - 1;
-  unsigned long pivot = 0;
   unsigned long diff = end;
+  unsigned long pivot = start + (diff / 2);
   char* pivotName = target->Data[pivot]->Name;
   while(diff > 1) {
     ComparisonResult comparison = Comparisons_CompareStrings(nameToFind,pivotName);
@@ -26,11 +26,27 @@ unsigned long NodeList_BalancedLookupIndex(NodeList* target, char* nameToFind) {
   return pivot;
 }
 
+void NodeList_Sort(NodeList* target) {
+  unsigned char sorted = 0;
+  while (!sorted) {
+    sorted = 1;
+    for (unsigned long i = 0; i < target->Size - 1; i++) {
+      Node* this = target->Data[i];
+      Node* next = target->Data[i+1];
+      ComparisonResult comparison = Comparisons_CompareStrings(this->Name, next->Name);
+      if (comparison == GREATER) {
+        sorted = 0;
+        target->Data[i+1] = this;
+        target->Data[i] = next;
+      }
+    }
+  }
+}
+
 
 Node* NodeList_BalancedLookup(NodeList* target, char* nameToFind) {
   if (target->Data == NULL) return NULL;
   unsigned long index = NodeList_BalancedLookupIndex(target, nameToFind);
-  printf("Index %d\n", index);
   if (index >= target->Size || index < 0) return NULL;
   Node* result = target->Data[index];
   ComparisonResult comparison = Comparisons_CompareStrings(result->Name, nameToFind);
@@ -38,23 +54,16 @@ Node* NodeList_BalancedLookup(NodeList* target, char* nameToFind) {
   return NULL;
 }
 
-void NodeList_BalancedInsert(NodeList* target, Node* toInsert) {
-  unsigned long index = NodeList_BalancedLookupIndex(target, toInsert->Name);
+void NodeList_Append(NodeList* target, Node* toInsert) {
   Node** newData = malloc(sizeof(Node*) * (target->Size + 1));
-  for(unsigned long i = 0; i < (target->Size + 1); i++) {
-    if(i < index) {
-      newData[i] = target->Data[i];
-    }
-    if(i == index) {
-      newData[i] = toInsert;
-    }
-    if(i > index) {
-      newData[i] = target->Data[i-1];
-    }
+  for(unsigned long i = 0; i < target->Size; i++) {
+    newData[i] = target->Data[i];
   }
+  newData[target->Size] = toInsert;
   free(target->Data);
   target->Data = newData;
   target->Size++;
+  NodeList_Sort(target);
 }
 
 NodeList* NodeList_New() {

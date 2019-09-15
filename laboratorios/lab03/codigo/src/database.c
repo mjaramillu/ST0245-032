@@ -105,15 +105,15 @@ void Database_PopulateFromCSV(Database* target, char* path) {
             printf("Student %s not found! Creating it...\n", studentName);
             studentNode = Node_New(studentName);
             printf("Adding to list...\n");
-            NodeList_BalancedInsert(target->Students, studentNode);
-            NodeList_Debug(target->Students);
+            NodeList_Append(target->Students, studentNode);
+            //NodeList_Debug(target->Students);
           }
           Node* courseNode = NodeList_BalancedLookup(target->Courses,courseName);
           if (courseName == NULL) {
             printf("Course %s not found! Creating it...\n", courseName);
             courseNode = Node_New(courseName);
             printf("Adding to list...\n");
-            NodeList_BalancedInsert(target->Courses, courseNode);
+            NodeList_Append(target->Courses, courseNode);
           }
           previousStudentName = studentName;
           previousCourseName = courseName;
