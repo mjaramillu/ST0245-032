@@ -1,8 +1,16 @@
 #ifndef LINKEDLIST
 #define LINKEDLIST
 
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct LinkedList LinkedList;
+
+typedef struct LinkedListNode LinkedListNode;
+
 typedef struct LinkedListNode {
   char Data;
+  LinkedList* Owner;
   LinkedListNode* Next;
   LinkedListNode* Previous;
 } LinkedListNode;
@@ -13,13 +21,17 @@ typedef struct LinkedList {
   LinkedListNode* Tail;
 } LinkedList;
 
-LinkedList* LinkedList_NewFromString(char* input);
+void LinkedList_Print(LinkedList* target);
 
 LinkedList* LinkedList_New();
 
 void LinkedList_Free(LinkedList* target);
 
-LinkedListNode LinkedListNode_New(char data);
+void LinkedList_AddBeginning(LinkedList* target, LinkedListNode* toAdd);
+
+void LinkedList_AddEnd(LinkedList* target, LinkedListNode* toAdd);
+
+LinkedListNode* LinkedListNode_New(char data);
 
 void LinkedListNode_Free(LinkedListNode* target);
 

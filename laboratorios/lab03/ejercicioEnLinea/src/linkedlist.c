@@ -1,31 +1,45 @@
 #include "linkedlist.h"
 
+void LinkedList_Print(LinkedList* target) {
+  LinkedListNode* selectedNode = target->Head;
+  while(selectedNode != target->Tail) {
+    printf("%c", selectedNode->Data);
+    selectedNode = selectedNode->Next;
+  }
+  printf("%c", selectedNode->Data);
+  printf("\n");
+}
+
 LinkedList* LinkedList_New() {
   LinkedList* result = malloc(sizeof(LinkedList));
   return result;
-}
-
-LinkedList* LinkedList_NewFromString(char* input) {
-  LinkedList* result = LinkedList_New();
-  LinkedListNode* previous = NULL;
-  for (unsigned long i = 0; input[i] != "\0"; i++) {
-    LinkedListNode* this = LinkedListNode_New(input[i]);
-    this->Previous = previous;
-    if (previous != NULL) {
-      previous->Next = this;
-    } else {
-      result->Head = this;
-    }
-    previous = this;
-  }
-  result->Tail = previous;
 }
 
 void LinkedList_Free(LinkedList* target) {
   free(target);
 }
 
-LinkedListNode LinkedListNode_New(char data) {
+void LinkedList_AddBeginning(LinkedList* target, LinkedListNode* toAdd) {
+  if (target->Head == NULL) {
+    target->Head = toAdd;
+    target->Tail = toAdd;
+    toAdd->Owner = target;
+  }
+  LinkedListNode_InsertBefore(target->Head, toAdd);
+}
+
+void LinkedList_AddEnd(LinkedList* target, LinkedListNode* toAdd) {
+  if (target->Tail == NULL) {
+    target->Head = toAdd;
+    target->Tail = toAdd;
+    toAdd->Owner = target;
+  }
+  LinkedListNode_InsertAfter(target->Tail, toAdd);
+}
+
+void LinkedList_AddEnd(LinkedList* target, LinkedListNode* toAdd);
+
+LinkedListNode* LinkedListNode_New(char data) {
   LinkedListNode* result = malloc(sizeof(LinkedListNode));
   result->Data = data;
   return result;
@@ -43,6 +57,10 @@ void LinkedListNode_InsertBefore(LinkedListNode* target, LinkedListNode* toInser
   toInsert->Previous = previous;
   toInsert->Next = target;
   target->Previous = toInsert;
+  if(target->Owner->Head == target) {
+    target->Owner->Head = toInsert;
+  }
+  toInsert->Owner = target->Owner;
 }
 
 void LinkedListNode_InsertAfter(LinkedListNode* target, LinkedListNode* toInsert) {
@@ -53,4 +71,8 @@ void LinkedListNode_InsertAfter(LinkedListNode* target, LinkedListNode* toInsert
   toInsert->Next = next;
   toInsert->Previous = target;
   target->Next = toInsert;
+  if(target->Owner->Tail == target) {
+    target->Owner->Tail = toInsert;
+  }
+  toInsert->Owner = target->Owner;
 }

@@ -64,12 +64,9 @@ endif
 
 OBJECTS :=
 
-OBJECTS += $(OBJDIR)/comparisons.o
-OBJECTS += $(OBJDIR)/database.o
-OBJECTS += $(OBJDIR)/link.o
+OBJECTS += $(OBJDIR)/keyboardparser.o
+OBJECTS += $(OBJDIR)/linkedlist.o
 OBJECTS += $(OBJDIR)/main.o
-OBJECTS += $(OBJDIR)/node.o
-OBJECTS += $(OBJDIR)/nodelist.o
 
 # Rules
 # #############################################
@@ -131,22 +128,13 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/comparisons.o: src/comparisons.c
+$(OBJDIR)/keyboardparser.o: src/keyboardparser.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/database.o: src/database.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/link.o: src/link.c
+$(OBJDIR)/linkedlist.o: src/linkedlist.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/main.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/node.o: src/node.c
-	@echo $(notdir $<)
-	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/nodelist.o: src/nodelist.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
