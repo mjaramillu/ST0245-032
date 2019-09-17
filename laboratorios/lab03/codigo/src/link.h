@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "node.h"
 
+typedef struct Node Node;
+
 typedef struct Link {
   Node* Student;
   Node* Course;
@@ -11,7 +13,7 @@ typedef struct Link {
   unsigned short Semester;
 } Link;
 
-Link* Link_New(Node* student, Node* course, unsigned char Grade, unsigned short Semester);
+Link* Link_New(Node* student, Node* course, unsigned char grade, unsigned short semester);
 
 void Link_Free(Link* target);
 

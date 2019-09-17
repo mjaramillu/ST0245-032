@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define u64 unsigned long long int
+#include "database.h"
 
 int main(int argc, char* argv[]) {
-  printf("Holi mundo :v\n");
+  Database* testDb = Database_New();
+  Database_PopulateFromCSV(testDb, "./datasets/joined.csv");
+  //NodeList_Debug(testDb->Students);
+  Database_QueryStudentsFromCourse(testDb, "\"FUNDAMENTOS DE PROGRAMACIÓN\"", 20142);
+  Database_QueryCoursesFromStudent(testDb, "Adón", 20142);
+  Database_Free(testDb);
   return 0;
 }
