@@ -64,6 +64,7 @@ endif
 
 OBJECTS :=
 
+OBJECTS += $(OBJDIR)/companies.o
 OBJECTS += $(OBJDIR)/comparisons.o
 OBJECTS += $(OBJDIR)/directory.o
 OBJECTS += $(OBJDIR)/hashtable.o
@@ -129,6 +130,9 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/companies.o: src/companies.c
+	@echo $(notdir $<)
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/comparisons.o: src/comparisons.c
 	@echo $(notdir $<)
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"

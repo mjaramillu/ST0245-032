@@ -1,5 +1,6 @@
 #include "directory.h"
 
+
 DirectoryLinkedListNode* DirectoryLinkedListNode_New(DirectoryEntry* data) {
   DirectoryLinkedListNode* result = malloc(sizeof(DirectoryLinkedListNode));
   result->Data = data;
