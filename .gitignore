@@ -3,6 +3,8 @@
 
 *.h
 
+datasets/
+
 # Object files
 *.o
 *.ko
