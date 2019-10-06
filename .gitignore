@@ -1,13 +1,7 @@
 # Prerequisites
 *.d
 
-bin/*
-datasets/
-obj/*
-
-Makefile
 *.h
-*.make
 
 # Object files
 *.o
