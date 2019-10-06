@@ -3,6 +3,18 @@
 
 *.h
 
+bin/*
+
+obj/*
+__pycache__/
+Makefile
+*.blg
+*.aux
+*.log
+*.out
+*.fls
+*.make
+
 datasets/
 
 # Object files
@@ -34,7 +46,6 @@ datasets/
 
 # Executables
 *.exe
-*.out
 *.app
 *.i*86
 *.x86_64
