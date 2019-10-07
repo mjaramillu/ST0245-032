@@ -158,4 +158,10 @@ Folder* filesystem_parse(char *path) {
     free(padding);
   }
   read_file = read_line_by_line(path, read_function);
+  if (read_file) {
+    return folder_stack[0];
+  }
+  else {
+    return NULL;
+  }
 }
