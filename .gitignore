@@ -6,6 +6,8 @@
 bin/*
 
 obj/*
+bin/
+obj/
 __pycache__/
 Makefile
 *.blg

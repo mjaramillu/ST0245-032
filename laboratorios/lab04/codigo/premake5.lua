@@ -7,7 +7,7 @@ project "lab"
    language "C"
    targetdir "bin/%{cfg.buildcfg}"
 
-   links { }
+   links { "m" }
 
    files { "**.h", "**.c" }
 
