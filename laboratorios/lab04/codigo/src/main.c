@@ -1,15 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "binary_tree.h"
+
 
 int main(int argc, char* argv[]) {
-  char *test = "├── [mauriciotoro  12M]  007 - GoldenEye (USA).n64";
-  char *test2 = malloc(200);
-  char *test3 = malloc(200);
-  char *test4 = malloc(200);
-  char *test5 = malloc(200);
-  sscanf(test, "%*c%[^[]%*c%[^ ] %*c%[^]]]  %99[^\n]", test2, test3, test4, test5);
-  printf("%s\n", test2);
-  printf("%s\n", test3);
-  printf("%s\n", test4);
-  printf("%s\n", test5);
+  unsigned int* values = {50, 30, 24, 5, 28, 45, 98, 52, 60};
+  tree_print_post(values, sizeof(values));
 }
