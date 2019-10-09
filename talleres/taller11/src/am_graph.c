@@ -75,6 +75,7 @@ void am_set_bi_connection (AMGraph *graph, char *a, char *b, int cost) {
   unsigned int a_index = am_get_vertex_index(graph, a);
   unsigned int b_index = am_get_vertex_index(graph, b);
   am_set_connection_index(graph, a_index, b_index, cost);
+  am_set_connection_index(graph, b_index, a_index, cost);
 }
 
 void am_print_graph (AMGraph *graph) {
