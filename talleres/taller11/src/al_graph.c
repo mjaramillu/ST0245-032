@@ -57,7 +57,7 @@ void vertex_add_connection(Vertex *vertex, unsigned int other_index, unsigned in
   vertex->connection_count++;
 }
 
-unsigned int am_get_vertex_index(ALGraph *graph, char *vertex) {
+unsigned int al_get_vertex_index(ALGraph *graph, char *vertex) {
   Vertex *focus_vertex = graph->head;
   for (unsigned int i = 0; i < graph->vertex_count; i++) {
     ComparisonResult result = Comparisons_CompareStrings(focus_vertex->name, vertex);
@@ -66,4 +66,31 @@ unsigned int am_get_vertex_index(ALGraph *graph, char *vertex) {
     }
     focus_vertex = focus_vertex->next;
   }
+}
+
+Vertex* al_get_vertex(ALGraph *graph, char *vertex) {
+  Vertex *focus_vertex = graph->head;
+  for (unsigned int i = 0; i < graph->vertex_count; i++) {
+    ComparisonResult result = Comparisons_CompareStrings(focus_vertex->name, vertex);
+    if (result == EQUAL) {
+      return focus_vertex;
+    }
+    focus_vertex = focus_vertex->next;
+  }
+}
+
+void al_set_connection (ALGraph *graph, char *a, char *b, unsigned int cost) {
+  Vertex *vertex_a = al_get_vertex(graph, a);
+  unsigned int index_b = al_get_vertex_index(graph, b);
+  vertex_add_connection(vertex_a, index_b, cost);
+}
+
+
+void al_set_bi_connection (ALGraph *graph, char *a, char *b, unsigned int cost) {
+  Vertex *vertex_a = al_get_vertex(graph, a);
+  Vertex *vertex_b = al_get_vertex(graph, b);
+  unsigned int index_a = al_get_vertex_index(graph, a);
+  unsigned int index_b = al_get_vertex_index(graph, b);
+  vertex_add_connection(vertex_a, index_b, cost);
+  vertex_add_connection(vertex_b, index_a, cost);
 }
