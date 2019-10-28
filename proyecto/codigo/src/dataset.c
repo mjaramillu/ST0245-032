@@ -8,6 +8,8 @@
 #include <float.h>
 #include "debug.h"
 
+#define DEBUG_LEVEL 1
+
 typedef enum DataType {
   DISCRETE,
   CONTINUOUS
@@ -71,7 +73,7 @@ void dataset_entry_dispose(DatasetEntry *entry) {
 
 DatasetEntry* dataset_entry_create(unsigned int feature_count) {
   if (feature_count <= 1) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Incorrect number of features for a dataset entry.");
     }
     return NULL;
@@ -101,7 +103,7 @@ void dataset_dispose(Dataset *dataset, bool free_header, bool free_data) {
 
 Dataset* dataset_create(DatasetHeader* header) {
   if (header == NULL) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Tried to create a dataset with a null header.");
     }
     return NULL;
@@ -111,6 +113,7 @@ Dataset* dataset_create(DatasetHeader* header) {
   result->has_cached_counts = false;
   result->head = NULL;
   result->tail = NULL;
+  result->counts = NULL;
   return result;
 }
 
@@ -138,7 +141,7 @@ DatasetHeader* dataset_header_create() {
 void dataset_header_add_feature(DatasetHeader* header, DatasetFeature* feature) {
   // Check if the feature is valid.
   if (feature == NULL) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Tried to add a NULL feature to a header.");
     }
     return;
@@ -161,6 +164,98 @@ void dataset_header_add_feature(DatasetHeader* header, DatasetFeature* feature) 
   header->feature_count++;
 }
 
+void dataset_split(Dataset *dataset, unsigned int feature_index, double split_value, Dataset **left, Dataset **right) {
+  DatasetEntry *left_slot = dataset->head->previous;
+  DatasetEntry *right_slot = dataset->tail->next;
+  if (left_slot != NULL) {
+    left_slot->next = NULL;
+  }
+  if (right_slot != NULL) {
+    right_slot->previous = NULL;
+  }
+  int left_count = 0;
+  int right_count = 0;
+  DatasetEntry *left_head = NULL;
+  DatasetEntry *right_head = NULL;
+  DatasetEntry *left_tail = NULL;
+  DatasetEntry *right_tail = NULL;
+  DatasetEntry *focus = dataset->head;
+  while ((focus != dataset->tail) & (focus != NULL)) {
+    bool passes_limit = focus->values[feature_index].continous < split_value;
+    if (passes_limit) {
+      if(left_tail != NULL) {
+        left_tail->next = focus;
+        focus->previous = left_tail;
+      }
+      if(left_head == NULL) {
+        left_head = focus;
+      }
+      left_tail = focus;
+      left_count++;
+    } else {
+      if(right_tail != NULL) {
+        right_tail->next = focus;
+        focus->previous = right_tail;
+      }
+      if(right_head == NULL) {
+        right_head = focus;
+      }
+      right_count++;
+      right_tail = focus;
+    }
+    focus = focus->next;
+  }
+  bool passes_limit = focus->values[feature_index].continous < split_value;
+  if (passes_limit) {
+    if(left_tail != NULL) {
+      left_tail->next = focus;
+      focus->previous = left_tail;
+    }
+    if(left_head == NULL) {
+      left_head = focus;
+    }
+    left_tail = focus;
+    left_count++;
+  } else {
+    if(right_tail != NULL) {
+      right_tail->next = focus;
+      focus->previous = right_tail;
+    }
+    if(right_head == NULL) {
+      right_head = focus;
+    }
+    right_count++;
+    right_tail = focus;
+  }
+
+  // Rewind the chains
+  if (left_slot != NULL) {
+    left_slot->next = left_head;
+    left_head->previous = left_slot;
+  } else {
+    left_head->previous = NULL;
+  }
+  if (right_slot != NULL) {
+    right_slot->previous = right_tail;
+    right_tail->next = right_slot;
+  } else {
+    right_tail->next = NULL;
+  }
+
+  left_tail->next = right_head;
+  right_head->previous = left_tail;
+
+  *left = dataset_create(dataset->header);
+  *right = dataset_create(dataset->header);
+
+  (*left)->entry_count = left_count;
+  (*left)->head = left_head;
+  (*left)->tail = left_tail;
+  (*right)->head = right_head;
+  (*right)->tail = right_tail;
+  (*right)->entry_count = right_count;
+}
+
 Dataset* dataset_load_from_disk(char* name) {
   // Obtain the length of filepaths so the buffers can be allocated properly.
   unsigned int base_path_length = strlen(DATASETS_FOLDER) + 1 + strlen(name) + 1 + 1;
@@ -173,13 +268,13 @@ Dataset* dataset_load_from_disk(char* name) {
   snprintf(data_path, data_path_length, "%s/%s/%s", DATASETS_FOLDER, name, DATA_FILENAME);
   snprintf(names_path, names_path_length, "%s/%s/%s", DATASETS_FOLDER, name, NAMES_FILENAME);
   // Print the paths for debug purposes.
-  if (DEBUG) {
+  if (DEBUG_LEVEL==20) {
     printf("[%s : %d] %s\n", __FILE__, __LINE__, data_path);
     printf("[%s : %d] %s\n", __FILE__, __LINE__, names_path);
   }
   // Verify access to the files.
   if (access(data_path, R_OK) == -1) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "Unable to read data file.");
     }
     return NULL;
@@ -190,7 +285,7 @@ Dataset* dataset_load_from_disk(char* name) {
   FILE *fp = fopen(names_path, "r");
   // Verify the file was opened before operating on it.
   if (fp == NULL) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "Unable to read names file.");
     }
     free(names_path);
@@ -240,7 +335,7 @@ Dataset* dataset_load_from_disk(char* name) {
                 feature->is_label = true;
                 found_label = true;
               } else {
-                if (DEBUG) {
+                if (DEBUG_LEVEL==20) {
                   printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Trying to add more than one discrete label.");
                 }
               }
@@ -261,13 +356,13 @@ Dataset* dataset_load_from_disk(char* name) {
               char* end;
               feature->discrete_possibles[index] = strtol(token, &end, 10);
             } else {
-              if (DEBUG) {
+              if (DEBUG_LEVEL==20) {
                 printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Trying to add more discrete possibilities than the original specified amount.");
               }
             }
           }
         } else {
-          if (DEBUG) {
+          if (DEBUG_LEVEL==20) {
             printf("[%s : %d] %s\n", __FILE__, __LINE__, "WARNING !! Trying to add discrete properties to continuous feature.");
           }
         }
@@ -278,7 +373,7 @@ Dataset* dataset_load_from_disk(char* name) {
     }
     // Check if the feature even had a name. Can't work otherwise.
     if (feature->name == NULL) {
-      if (DEBUG) {
+      if (DEBUG_LEVEL==20) {
         printf("[%s : %d] %s\n", __FILE__, __LINE__, "Unable to parse names file.");
         return NULL;
       }
@@ -294,7 +389,7 @@ Dataset* dataset_load_from_disk(char* name) {
   fclose(fp);
   free(line);
   if (!found_label | (header->feature_count < 2)) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "The dataset must have at least two features and a label.");
     }
     free(names_path);
@@ -303,7 +398,7 @@ Dataset* dataset_load_from_disk(char* name) {
     return NULL;
   }
   // Debug the header to make sure it's correct.
-  if (DEBUG) {
+  if (DEBUG_LEVEL==20) {
     printf("[%s : %d] %s %u\n", __FILE__, __LINE__, "Header features:", header->feature_count);
     for (unsigned int i = 0; i < header->feature_count; i++) {
       printf("[%s : %d] -------------\n", __FILE__, __LINE__);
@@ -319,7 +414,7 @@ Dataset* dataset_load_from_disk(char* name) {
   fp = fopen(data_path, "r");
   // Verify the file was opened before operating on it.
   if (fp == NULL) {
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s\n", __FILE__, __LINE__, "Unable to read data file.");
     }
     free(names_path);
@@ -392,7 +487,7 @@ Dataset* dataset_load_from_disk(char* name) {
     }
     // Verify that the feature count matches the value count.
     if (column_id != dataset->header->feature_count) {
-      if (DEBUG) {
+      if (DEBUG_LEVEL==20) {
         printf("[%s : %d] %s %u %u %u\n", __FILE__, __LINE__, "Unable to parse data file:", count, column_id, dataset->header->feature_count);
       }
       free(names_path);
@@ -400,7 +495,7 @@ Dataset* dataset_load_from_disk(char* name) {
       dataset_dispose(dataset, true, true);
       return NULL;
     }
-    if (DEBUG) {
+    if (DEBUG_LEVEL==20) {
       printf("[%s : %d] %s %u\n", __FILE__, __LINE__, "Loaded entry #", count);
     }
     previous = entry;
@@ -412,7 +507,7 @@ Dataset* dataset_load_from_disk(char* name) {
   free(line);
   dataset->entry_count = count;
   // Print the final entry count for debug purposes.
-  if (DEBUG) {
+  if (DEBUG_LEVEL==20) {
     printf("[%s : %d] %s %u\n", __FILE__, __LINE__, "Final entry count:", dataset->entry_count);
   }
   free(names_path);
